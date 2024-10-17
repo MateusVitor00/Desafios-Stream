@@ -1,0 +1,211 @@
+A Stream API em Java introduzida no Java 8 permite operações funcionais em coleções de dados, como listas ou conjuntos. Aqui está uma lista dos métodos mais comuns da Stream API e suas respectivas funcionalidades:
+
+### 1. **`filter(Predicate<T> predicate)`**
+
+- **Usabilidade**: Filtra elementos do stream com base em uma condição.
+- **Exemplo**:
+    
+    java
+    
+    Copiar código
+    
+    `List<Integer> numeros = Arrays.asList(1, 2, 3, 4, 5); numeros.stream()        .filter(n -> n % 2 == 0)  // Filtra números pares        .forEach(System.out::println);`
+    
+- **Saída**: `2 4`
+
+### 2. **`map(Function<T, R> mapper)`**
+
+- **Usabilidade**: Transforma os elementos do stream aplicando uma função a cada um.
+- **Exemplo**:
+    
+    java
+    
+    Copiar código
+    
+    `List<String> nomes = Arrays.asList("Ana", "João", "Pedro"); nomes.stream()      .map(String::toUpperCase)  // Transforma em maiúsculas      .forEach(System.out::println);`
+    
+- **Saída**: `ANA JOÃO PEDRO`
+
+### 3. **`sorted()`**
+
+- **Usabilidade**: Ordena os elementos do stream em ordem natural (crescente). Pode-se usar uma sobrecarga para customizar a ordem.
+- **Exemplo**:
+    
+    java
+    
+    Copiar código
+    
+    `List<Integer> numeros = Arrays.asList(5, 3, 8, 1, 9); numeros.stream()        .sorted()  // Ordena em ordem crescente        .forEach(System.out::println);`
+    
+- **Saída**: `1 3 5 8 9`
+
+### 4. **`distinct()`**
+
+- **Usabilidade**: Remove elementos duplicados do stream.
+- **Exemplo**:
+    
+    java
+    
+    Copiar código
+    
+    `List<Integer> numeros = Arrays.asList(1, 2, 2, 3, 4, 4); numeros.stream()        .distinct()  // Remove duplicatas        .forEach(System.out::println);`
+    
+- **Saída**: `1 2 3 4`
+
+### 5. **`limit(long maxSize)`**
+
+- **Usabilidade**: Limita o número de elementos no stream ao número especificado.
+- **Exemplo**:
+    
+    java
+    
+    Copiar código
+    
+    `List<Integer> numeros = Arrays.asList(1, 2, 3, 4, 5); numeros.stream()        .limit(3)  // Limita a 3 primeiros elementos        .forEach(System.out::println);`
+    
+- **Saída**: `1 2 3`
+
+### 6. **`skip(long n)`**
+
+- **Usabilidade**: Pula os primeiros `n` elementos e retorna o resto.
+- **Exemplo**:
+    
+    java
+    
+    Copiar código
+    
+    `List<Integer> numeros = Arrays.asList(1, 2, 3, 4, 5); numeros.stream()        .skip(2)  // Pula os dois primeiros elementos        .forEach(System.out::println);`
+    
+- **Saída**: `3 4 5`
+
+### 7. **`collect(Collector<T, A, R> collector)`**
+
+- **Usabilidade**: Coleta os elementos do stream em uma coleção ou outro tipo de estrutura de dados.
+- **Exemplo**:
+    
+    java
+    
+    Copiar código
+    
+    `List<Integer> numeros = Arrays.asList(1, 2, 3, 4, 5); List<Integer> resultado = numeros.stream()                                  .filter(n -> n % 2 == 0)  // Filtra números pares                                  .collect(Collectors.toList());  // Coleta em uma lista`
+    
+- **Saída**: `[2, 4]` (Lista)
+
+### 8. **`forEach(Consumer<T> action)`**
+
+- **Usabilidade**: Executa uma ação em cada elemento do stream.
+- **Exemplo**:
+    
+    java
+    
+    Copiar código
+    
+    `List<String> nomes = Arrays.asList("Ana", "Bruno", "Carlos"); nomes.stream()      .forEach(System.out::println);  // Exibe cada nome`
+    
+- **Saída**: `Ana Bruno Carlos`
+
+### 9. **`reduce(BinaryOperator<T> accumulator)`**
+
+- **Usabilidade**: Reduz os elementos do stream a um único valor aplicando uma função binária iterativamente.
+- **Exemplo**:
+    
+    java
+    
+    Copiar código
+    
+    `List<Integer> numeros = Arrays.asList(1, 2, 3, 4); int soma = numeros.stream()                   .reduce(0, Integer::sum);  // Soma os números System.out.println(soma);`
+    
+- **Saída**: `10`
+
+### 10. **`anyMatch(Predicate<T> predicate)`**
+
+- **Usabilidade**: Retorna `true` se qualquer elemento do stream corresponder à condição.
+- **Exemplo**:
+    
+    java
+    
+    Copiar código
+    
+    `List<String> nomes = Arrays.asList("Ana", "Bruno", "Carlos"); boolean existeBruno = nomes.stream()                            .anyMatch(n -> n.equals("Bruno"));  // Verifica se "Bruno" está na lista System.out.println(existeBruno);`
+    
+- **Saída**: `true`
+
+### 11. **`allMatch(Predicate<T> predicate)`**
+
+- **Usabilidade**: Retorna `true` se todos os elementos do stream corresponderem à condição.
+- **Exemplo**:
+    
+    java
+    
+    Copiar código
+    
+    `List<Integer> numeros = Arrays.asList(2, 4, 6); boolean todosPares = numeros.stream()                             .allMatch(n -> n % 2 == 0);  // Verifica se todos são pares System.out.println(todosPares);`
+    
+- **Saída**: `true`
+
+### 12. **`noneMatch(Predicate<T> predicate)`**
+
+- **Usabilidade**: Retorna `true` se nenhum elemento do stream corresponder à condição.
+- **Exemplo**:
+    
+    java
+    
+    Copiar código
+    
+    `List<Integer> numeros = Arrays.asList(2, 4, 6); boolean nenhumImpar = numeros.stream()                              .noneMatch(n -> n % 2 != 0);  // Verifica se não há ímpares System.out.println(nenhumImpar);`
+    
+- **Saída**: `true`
+
+### 13. **`findFirst()`**
+
+- **Usabilidade**: Retorna o primeiro elemento do stream, se presente.
+- **Exemplo**:
+    
+    java
+    
+    Copiar código
+    
+    `List<Integer> numeros = Arrays.asList(3, 5, 7); Optional<Integer> primeiro = numeros.stream().findFirst(); System.out.println(primeiro.get());`
+    
+- **Saída**: `3`
+
+### 14. **`findAny()`**
+
+- **Usabilidade**: Retorna algum elemento do stream, se presente. Ideal para operações paralelas.
+- **Exemplo**:
+    
+    java
+    
+    Copiar código
+    
+    `List<Integer> numeros = Arrays.asList(3, 5, 7); Optional<Integer> algum = numeros.stream().findAny(); System.out.println(algum.get());`
+    
+- **Saída**: `3` (ou qualquer outro, dependendo da execução)
+
+### 15. **`count()`**
+
+- **Usabilidade**: Retorna o número de elementos no stream.
+- **Exemplo**:
+    
+    java
+    
+    Copiar código
+    
+    `List<Integer> numeros = Arrays.asList(1, 2, 3, 4, 5); long total = numeros.stream().count(); System.out.println(total);`
+    
+- **Saída**: `5`
+
+### 16. **`max(Comparator<T> comparator)` e `min(Comparator<T> comparator)`**
+
+- **Usabilidade**: Retorna o maior (ou menor) elemento de acordo com o comparador fornecido.
+- **Exemplo**:
+    
+    java
+    
+    Copiar código
+    
+    `List<Integer> numeros = Arrays.asList(1, 2, 3, 4, 5); Optional<Integer> max = numeros.stream().max(Integer::compare); System.out.println(max.get());`
+    
+- **Saída**: `5`
+
+Esses são os principais métodos da Stream API em Java, que facilitam a manipulação de coleções de dados de maneira funcional e eficiente.
